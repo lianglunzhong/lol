@@ -44,15 +44,11 @@
       <div class="avatar" @click="showUser()">
         <img src="./avatar.jpg" width="30" height="30">
       </div>
-      <div class="tab">
-        <div class="tab-item">
-          <router-link :to="{ name: 'recom' }">推荐</router-link>
-        </div>
-        <div class="tab-item">
-          <router-link :to="{ name: 'version' }">版本</router-link>
-        </div>
-        <div class="tab-item">
-          <router-link :to="{ name: 'govern' }">官方</router-link>
+      <div class="tab-scroll" ref="cateTab">
+        <div class="tab" ref="tabWrap">
+          <div class="tab-item" v-for="(cate, index) in cates" :key="index">
+            <router-link :to="{ name: cate.name }">{{cate.nick}}</router-link>
+          </div>
         </div>
       </div>
       <div class="search">
@@ -64,6 +60,7 @@
 
 <script>
   import Bus from '@/common/js/Bus';
+  import BScroll from 'better-scroll';
 
   export default {
     name: 'Header',
@@ -73,7 +70,37 @@
         userShow: false
       };
     },
+    props: {
+      cates: {
+        type: Array,
+        default: function() {
+          return [];
+        }
+      }
+    },
+    created() {
+      this._initCateTabScroll();
+    },
     methods: {
+      _initCateTabScroll() {
+        if (this.cates.length > 3) {
+          this.$nextTick(function() {
+            let width = 80 * this.cates.length;
+
+            this.$refs.tabWrap.style.width = width + 'px';
+            
+            if (!this.scroll) {
+              this.scroll = new BScroll(this.$refs.cateTab, {
+                click: true,
+                scrollX: true,
+                eventPassthrough: 'vertical'
+              });
+            } else {
+              this.scroll.refresh();
+            }
+          });
+        }
+      },
       showUser() {
         this.userShow = !this.userShow;
         
@@ -96,12 +123,18 @@
   .header-wrapper.sleep {
     transform: translateX(80%);
   }
+  .tab-scroll {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
   .tab {
     display: flex;
-    flex: 1;
   }
   .tab-item {
     flex: 1;
+    min-width: 80px;
     text-align: center;
   }
   .tab-item a {

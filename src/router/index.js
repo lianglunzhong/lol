@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld';
 import News from '@/components/news/news';
 import Recommend from '@/components/news/recommend';
 import Version from '@/components/news/version';
+import Sports from '@/components/news/sports';
 import Government from '@/components/news/government';
 import Heros from '@/components/heros/heros';
 
@@ -27,14 +28,19 @@ export default new Router({
           component: Recommend
         },
         {
-          path: 'version',
-          name: 'version',
-          component: Version
+          path: 'sports',
+          name: 'sports',
+          component: Sports
         },
         {
           path: 'govern',
           name: 'govern',
           component: Government
+        },
+        {
+          path: 'version',
+          name: 'version',
+          component: Version
         }
       ]
     },
