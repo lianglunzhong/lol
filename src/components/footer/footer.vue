@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="tab">
       <div class="tab-item">
-        <router-link :to="{ name: 'recom' }">
+        <router-link :to="{ name: 'recom' }" exact>
           <span class="glyphicon glyphicon-book icon"></span>资讯
         </router-link>
       </div>

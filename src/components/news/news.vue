@@ -29,6 +29,8 @@
       });
 
       this._getCates();
+
+      console.log(this.$route);
     },
     methods: {
       _getCates() {

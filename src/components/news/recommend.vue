@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
       <v-swiper></v-swiper>
-      <v-lists :lists="lists"></v-lists>
+      <v-lists :lists="lists" :hasSwiper="hasSwiper"></v-lists>
   </div>
 </template>
 
@@ -16,7 +16,8 @@
     data () {
       return {
         msg: 'This is recommend component',
-        lists: []
+        lists: [],
+        hasSwiper: true
       };
     },
     created() {
