@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="tab">
       <div class="tab-item">
-        <router-link :to="{ name: 'news' }">
+        <router-link :to="{ name: 'recom' }">
           <span class="glyphicon glyphicon-book icon"></span>资讯
         </router-link>
       </div>
@@ -39,10 +39,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     left: 0;
     bottom: 0;
+    z-index: 50;
   }
   .tab {
     display: flex;

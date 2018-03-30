@@ -2,7 +2,6 @@
   <div class="news">
     <v-header :cates="cates"></v-header>
     <div class="news-wrapper" :class="{sleep: userShow}">
-      {{msg}}
       <router-view></router-view>
     </div>
   </div>
@@ -11,6 +10,8 @@
 <script>
   import Bus from '@/common/js/Bus';
   import Header from '@/components/header/header';
+  
+  import { baseUrl } from '@/config/env';
 
   export default {
     name: 'News',
@@ -18,11 +19,7 @@
       return {
         msg: 'This is news component',
         userShow: false,
-        cates: [
-          {'name': 'recom', 'nick': '推荐'},
-          {'name': 'govern', 'nick': '官方'},
-          {'name': 'sports', 'nick': '赛事'}
-        ]
+        cates: []
       };
     },
     created() {
@@ -30,6 +27,22 @@
       Bus.$on('user-show', val => {
         self.userShow = val;
       });
+
+      this._getCates();
+    },
+    methods: {
+      _getCates() {
+        let url = baseUrl + '/news/cates';
+
+        this.$http.jsonp(url, {
+          params: {},
+          jsonp: 'callback'
+        }).then(function(response) {
+          this.cates = response.body.data;
+        }, function(error) {
+          console.log(error);
+        });
+      }
     },
     components: {
       'v-header': Header
